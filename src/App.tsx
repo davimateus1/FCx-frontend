@@ -1,7 +1,7 @@
-import { Heading } from '@chakra-ui/react';
+import { AppRoutes } from './routes';
 
 const App = (): JSX.Element => {
-  return <Heading>Hello</Heading>;
+  return <AppRoutes />;
 };
 
 export default App;
