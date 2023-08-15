@@ -1,5 +1,7 @@
+import { Heading } from '@chakra-ui/react';
+
 const App = (): JSX.Element => {
-  return <h1>Hello</h1>;
+  return <Heading>Hello</Heading>;
 };
 
 export default App;
