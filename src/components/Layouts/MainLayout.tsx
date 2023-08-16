@@ -2,6 +2,7 @@ import { FlexProps, Grid, GridItem } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 import { useDocumentTitle } from '~/hooks';
 import { CustomLayout } from './CustomLayout';
+import { Sidebar } from '../Sidebar';
 
 type MainLayoutProps = {
   headTitle: string;
@@ -13,14 +14,14 @@ export const MainLayout = ({ headTitle, children, ...rest }: MainLayoutProps): J
 
   return (
     <CustomLayout
-      firstBoxProps={{ filter: 'blur(45rem)' }}
-      secondBoxProps={{ filter: 'blur(45rem)' }}
+      firstBoxProps={{ filter: 'blur(20rem)' }}
+      secondBoxProps={{ filter: 'blur(20rem)' }}
       headTitle={headTitle}
       {...rest}
     >
       <Grid templateColumns='repeat(2, 3fr)' overflowX='hidden'>
         <GridItem pl='5.6rem' minW='14.6rem' pt='5.9rem' pb='5rem' display='flex'>
-          Hello
+          <Sidebar />
         </GridItem>
         <GridItem minW='calc(100vw - 14.6rem - 10rem)'>{children}</GridItem>
       </Grid>
