@@ -6,11 +6,12 @@ export const LoginContent = (): JSX.Element => {
   return (
     <Flex
       w='70%'
-      h='80%'
+      minH='80%'
+      h='auto'
       borderRadius='2xl'
       bg='white.0'
       zIndex={1}
-      border='3px solid'
+      border='0.2rem solid'
       borderColor='primary.0'
     >
       <LoginLeftContent />

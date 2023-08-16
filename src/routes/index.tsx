@@ -6,6 +6,7 @@ export const AppRoutes = (): JSX.Element => {
     <Router>
       <Routes>
         <Route path='/login' element={<LoginPage />} />
+        <Route path='/recuperar-senha' element={<></>} />
         <Route path='/' element={<></>} />
         <Route path='/adicionar-usuario' element={<></>} />
         <Route path='/editar-usuario/:userId' element={<></>} />

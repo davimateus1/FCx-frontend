@@ -29,7 +29,7 @@ export const CustomLayout = ({
         w='20%'
         h='40%'
         bg='secondary.50'
-        filter='blur(25rem)'
+        filter='blur(20rem)'
         {...firstBoxProps}
       />
       {children}
@@ -41,7 +41,7 @@ export const CustomLayout = ({
         w='20%'
         h='25%'
         bg='secondary.100'
-        filter='blur(40rem)'
+        filter='blur(30rem)'
         {...secondBoxProps}
       />
     </Flex>

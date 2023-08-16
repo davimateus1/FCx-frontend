@@ -8,7 +8,6 @@ export const borderRadius = {
     '2xl': '1.6rem',
     '3xl': '2.0rem',
     '4xl': '2.4rem',
-    full: '9999px',
     base: '.5rem',
   },
 };
