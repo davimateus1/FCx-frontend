@@ -1,12 +1,13 @@
 import { Box, Flex, FlexProps } from '@chakra-ui/react';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
+import { useDocumentTitle } from '~/hooks';
 
 type CustomLayoutProps = {
   children: ReactNode;
   flexProps?: FlexProps;
   firstBoxProps?: FlexProps;
   secondBoxProps?: FlexProps;
-  headTitle?: string;
+  headTitle: string;
 };
 export const CustomLayout = ({
   children,
@@ -15,11 +16,7 @@ export const CustomLayout = ({
   secondBoxProps,
   headTitle,
 }: CustomLayoutProps): JSX.Element => {
-  useEffect(() => {
-    if (headTitle) {
-      document.title = `${headTitle} | FCx Labs`;
-    }
-  }, [headTitle]);
+  useDocumentTitle({ title: headTitle });
 
   return (
     <Flex h='100vh' bg='primary.0' pos='relative' overflowX='hidden' {...flexProps}>
