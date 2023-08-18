@@ -1,4 +1,4 @@
-import { CustomLayout } from '~/components/Layouts';
+import { CustomLayout } from '~/components';
 import { LoginContent } from '../components';
 
 export const LoginPage = (): JSX.Element => {

@@ -2,12 +2,12 @@ import { Button, Flex, Icon, Text } from '@chakra-ui/react';
 
 import { useForm } from 'react-hook-form';
 
-import { PasswordInput, TextInput } from '~/components/Form';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineUser } from 'react-icons/ai';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginFormProps, loginSchema } from '../schemas';
+import { PasswordInput, TextInput } from '~/components';
 
 export const LoginForm = (): JSX.Element => {
   const navigate = useNavigate();

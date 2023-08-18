@@ -13,24 +13,28 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { FiFilter } from 'react-icons/fi';
 import { IoMdClose } from 'react-icons/io';
-import { TextInput } from '~/components/Form';
-import { TagList } from '~/components/Tags';
+import { TextInput, TagList } from '~/components';
+import { tags } from '../utils';
 
-const tags = [
-  { label: '18-26', minValue: '18', maxValue: '26' },
-  { label: '25-31', minValue: '25', maxValue: '31' },
-  { label: '30-36', minValue: '30', maxValue: '36' },
-  { label: '35-41', minValue: '35', maxValue: '41' },
-  { label: '40+', minValue: '40', maxValue: '' },
-];
+type FiltersDrawerProps = {
+  status: string;
+  ageRange: string[];
+  setStatus: Dispatch<SetStateAction<string>>;
+  setAgeRange: Dispatch<SetStateAction<string[]>>;
+  setDate: Dispatch<SetStateAction<string>>;
+};
 
-export const FiltersDrawer = (): JSX.Element => {
+export const FiltersDrawer = ({
+  status,
+  ageRange,
+  setDate,
+  setStatus,
+  setAgeRange,
+}: FiltersDrawerProps): JSX.Element => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [ageRange, setAgeRange] = useState<string[]>([]);
-  const [status, setStatus] = useState('');
 
   const handleStatusChange = (newStatus: string) => {
     if (status === newStatus) {
@@ -38,6 +42,10 @@ export const FiltersDrawer = (): JSX.Element => {
     } else {
       setStatus(newStatus);
     }
+  };
+
+  const handleChangeDate = (e: ChangeEvent<HTMLInputElement>) => {
+    setDate(e.target.value);
   };
 
   return (
@@ -84,6 +92,7 @@ export const FiltersDrawer = (): JSX.Element => {
                 color='primary.100'
                 border='1.5px solid'
                 borderColor='primary.100'
+                onChange={(e) => handleChangeDate(e)}
               />
             </Flex>
             <Divider my='1.5rem' borderColor='black.0' />

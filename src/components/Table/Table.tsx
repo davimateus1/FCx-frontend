@@ -59,7 +59,7 @@ export const Table = <TData extends Record<string, unknown>>({
                     borderLeft={index === 0 ? 'none' : '1px solid'}
                     borderLeftColor='gray.zeroOpacity20'
                     bgColor={bgColor}
-                    textAlign={index === 2 ? 'left' : 'center'}
+                    textAlign='center'
                     alignSelf='center'
                     color='white'
                     _last={{
@@ -85,7 +85,7 @@ export const Table = <TData extends Record<string, unknown>>({
         <Tbody height='100%'>
           {getRowModel().rows.map((row) => {
             return (
-              <Tr key={`${row.id}-${row.original.id}`}>
+              <Tr key={`${row.id}-${row.original.id}`} bg='black.0'>
                 {row.getVisibleCells().map((cell) => {
                   const columnCell = cell.column.columnDef.cell;
 
