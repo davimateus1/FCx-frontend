@@ -30,7 +30,9 @@ export const Sidebar = (): JSX.Element => {
       direction='column'
       transition='all 0.3s ease-in-out'
       backdropFilter='blur(1.5rem)'
+      position='fixed'
       zIndex={isMenuOpen ? 10 : 0}
+      ml='5rem'
     >
       <Image src={FcxLogo} w='5rem' h='5rem' mt='2rem' mb='4rem' />
       <Button
