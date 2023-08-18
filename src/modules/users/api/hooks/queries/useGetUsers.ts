@@ -31,7 +31,7 @@ export const useGetUsers = ({
           },
         },
       }),
-    queryKey: ['users', search, minAge, maxAge, status],
+    queryKey: ['users', search, minAge, maxAge, status, date],
     ...rest,
   });
 };

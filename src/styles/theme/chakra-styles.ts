@@ -47,7 +47,7 @@ export const styles = {
       fontWeight: '400',
       letterSpacing: '0.024rem',
       color: 'primary.0',
-      fontFamily: 'Poppins',
+      fontFamily: 'Poppins, sans-serif',
     },
   }),
 };

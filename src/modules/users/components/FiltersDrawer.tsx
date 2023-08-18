@@ -18,11 +18,12 @@ import { FiFilter } from 'react-icons/fi';
 import { IoMdClose } from 'react-icons/io';
 import { TextInput, TagList } from '~/components';
 import { tags } from '../utils';
+import { UserStatus } from '~/types';
 
 type FiltersDrawerProps = {
   status: string;
   ageRange: string[];
-  setStatus: Dispatch<SetStateAction<string>>;
+  setStatus: Dispatch<SetStateAction<UserStatus>>;
   setAgeRange: Dispatch<SetStateAction<string[]>>;
   setDate: Dispatch<SetStateAction<string>>;
 };
@@ -36,16 +37,21 @@ export const FiltersDrawer = ({
 }: FiltersDrawerProps): JSX.Element => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleStatusChange = (newStatus: string) => {
+  const handleStatusChange = (newStatus: UserStatus) => {
     if (status === newStatus) {
-      setStatus('');
+      setStatus(UserStatus.ACTIVE);
     } else {
       setStatus(newStatus);
     }
   };
 
   const handleChangeDate = (e: ChangeEvent<HTMLInputElement>) => {
-    setDate(e.target.value);
+    if (e.target.value.trim() === '') {
+      setDate('');
+    } else {
+      const date = new Date(e.target.value);
+      setDate(date.toISOString());
+    }
   };
 
   return (
@@ -111,7 +117,7 @@ export const FiltersDrawer = ({
               </Text>
               <Flex gap='1rem' fontWeight='500'>
                 <Checkbox
-                  onChange={() => handleStatusChange('active')}
+                  onChange={() => handleStatusChange(UserStatus.ACTIVE)}
                   colorScheme='green'
                   isChecked={status === 'active'}
                   size='lg'
@@ -119,7 +125,7 @@ export const FiltersDrawer = ({
                   Ativo
                 </Checkbox>
                 <Checkbox
-                  onChange={() => handleStatusChange('inactive')}
+                  onChange={() => handleStatusChange(UserStatus.INACTIVE)}
                   colorScheme='green'
                   isChecked={status === 'inactive'}
                   size='lg'
@@ -127,7 +133,7 @@ export const FiltersDrawer = ({
                   Inativo
                 </Checkbox>
                 <Checkbox
-                  onChange={() => handleStatusChange('blocked')}
+                  onChange={() => handleStatusChange(UserStatus.BLOCKED)}
                   colorScheme='green'
                   isChecked={status === 'blocked'}
                   size='lg'

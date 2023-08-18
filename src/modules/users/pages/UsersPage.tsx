@@ -6,11 +6,12 @@ import { useGetUsers } from '../api/hooks';
 
 import { headersUsers } from '../utils/headers';
 import { CustomHeader, MainLayout, Table } from '~/components';
-import { FiltersDrawer } from '../components';
+import { FiltersDrawer, TableOptions } from '../components';
+import { UserStatus } from '~/types';
 
 export const UsersPage = (): JSX.Element => {
   const [search, setSearch] = useState('');
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState<UserStatus>(UserStatus.ACTIVE);
 
   const [ageRange, setAgeRange] = useState<string[]>([]);
   const [date, setDate] = useState('');
@@ -22,6 +23,8 @@ export const UsersPage = (): JSX.Element => {
     status,
     date,
   });
+
+  console.log(date);
 
   return (
     <MainLayout headTitle='Usuários'>
@@ -39,7 +42,8 @@ export const UsersPage = (): JSX.Element => {
             setDate={setDate}
           />
         </CustomHeader>
-        <Flex mt='1.5rem'>
+        <Flex mt='1.5rem' direction='column'>
+          <TableOptions />
           <Table
             columns={headersUsers()}
             data={users ?? []}
