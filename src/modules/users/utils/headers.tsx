@@ -1,17 +1,19 @@
-import { Icon, Text } from '@chakra-ui/react';
+import { Flex, Icon, Text } from '@chakra-ui/react';
 import { createColumnHelper } from '@tanstack/react-table';
-import { FiTrash } from 'react-icons/fi';
-import { User } from '~/types';
+
+import { User, UserStatus } from '~/types';
+import { MdOutlineBlock } from 'react-icons/md';
+import { LuUserCheck, LuUserX } from 'react-icons/lu';
+import { CustomModal } from '~/components/Modal';
 
 const columnHelper = createColumnHelper<User>();
 
-// type HeadersUsersProps = {
-//   filter: string;
-//   deleteUserFn: (userId: string) => void;
-//   deleteUserLoading: boolean;
-// };
+type HeadersUsersProps = {
+  handleChangeStatus: (userId: number, status: UserStatus) => void;
+  changeStatusLoading: boolean;
+};
 
-export const headersUsers = () => {
+export const headersUsers = ({ handleChangeStatus, changeStatusLoading }: HeadersUsersProps) => {
   return [
     columnHelper.accessor('id', {
       header: 'ID',
@@ -99,9 +101,45 @@ export const headersUsers = () => {
     }),
     columnHelper.accessor('id', {
       header: 'Ações',
-      size: 1,
-      cell: () => {
-        return <Icon as={FiTrash} color='primary.50' fontSize='2xl' cursor='pointer' />;
+      size: 500,
+      cell: (props) => {
+        const status = props.row.original.status;
+        const isInactive = status === UserStatus.INACTIVE;
+
+        return (
+          <Flex justify='space-around' align='center'>
+            <CustomModal
+              status={status}
+              title={`${isInactive ? 'Ativar' : 'Desativar'} usuário`}
+              description={`Tem certeza que deseja ${
+                isInactive ? 'ativar' : 'desativar'
+              } esse usuário?`}
+              confirmText={isInactive ? 'Ativar' : 'Desativar'}
+              isLoading={changeStatusLoading}
+              actionFunction={
+                isInactive
+                  ? () => handleChangeStatus(props.getValue(), UserStatus.ACTIVE)
+                  : () => handleChangeStatus(props.getValue(), UserStatus.INACTIVE)
+              }
+            >
+              <Icon
+                as={isInactive ? LuUserCheck : LuUserX}
+                color={isInactive ? 'primary.100' : 'yellow.500'}
+                fontSize='3xl'
+              />
+            </CustomModal>
+            <CustomModal
+              status={status}
+              title='Bloquear usuário'
+              description='Tem certeza que deseja bloquear esse usuário?'
+              confirmText='Bloquear'
+              isLoading={changeStatusLoading}
+              actionFunction={() => handleChangeStatus(props.getValue(), UserStatus.BLOCKED)}
+            >
+              <Icon as={MdOutlineBlock} color='primary.50' fontSize='3xl' />
+            </CustomModal>
+          </Flex>
+        );
       },
     }),
   ];

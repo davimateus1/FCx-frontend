@@ -2,7 +2,7 @@ import { Fade, Flex, Icon } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { TbUsersGroup } from 'react-icons/tb';
-import { useGetUsers } from '../api/hooks';
+import { useChangeStatus, useGetUsers } from '../api/hooks';
 
 import { headersUsers } from '../utils/headers';
 import { CustomHeader, MainLayout, Table } from '~/components';
@@ -12,7 +12,6 @@ import { UserStatus } from '~/types';
 export const UsersPage = (): JSX.Element => {
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState<UserStatus>(UserStatus.ACTIVE);
-
   const [ageRange, setAgeRange] = useState<string[]>([]);
   const [date, setDate] = useState('');
 
@@ -24,7 +23,11 @@ export const UsersPage = (): JSX.Element => {
     date,
   });
 
-  console.log(date);
+  const { changeStatusMutate, changeStatusLoading } = useChangeStatus();
+
+  const handleChangeStatus = (userId: number, status: UserStatus) => {
+    changeStatusMutate({ id: userId, status });
+  };
 
   return (
     <MainLayout headTitle='Usuários'>
@@ -45,7 +48,7 @@ export const UsersPage = (): JSX.Element => {
         <Flex mt='1.5rem' direction='column'>
           <TableOptions />
           <Table
-            columns={headersUsers()}
+            columns={headersUsers({ handleChangeStatus, changeStatusLoading })}
             data={users ?? []}
             bgColor='secondary.50'
             isLoading={usersLoading}
