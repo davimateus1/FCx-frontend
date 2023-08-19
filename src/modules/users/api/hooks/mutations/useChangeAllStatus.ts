@@ -1,20 +1,19 @@
 import { UseMutateFunction, useMutation } from '@tanstack/react-query';
 
 import { useCustomToast } from '~/hooks';
-import { changeUserStatus } from '../../requests';
+import { changeAllStatus } from '../../requests';
 import { queryClient } from '~/lib/react-query';
-import { ChangeStatusParams } from '../../types';
 
-type ChangeStatusReturn = {
-  changeStatusLoading: boolean;
-  changeStatusMutate: UseMutateFunction<void, unknown, ChangeStatusParams, unknown>;
+type ChangeAllStatusReturn = {
+  changeAllStatusLoading: boolean;
+  changeAllStatusMutate: UseMutateFunction<void, unknown>;
 };
 
-export const useChangeStatus = (): ChangeStatusReturn => {
+export const useChangeAllStatus = (): ChangeAllStatusReturn => {
   const { showSuccessToast, showErrorToast } = useCustomToast();
 
-  const { mutate: changeStatusMutate, isLoading: changeStatusLoading } = useMutation({
-    mutationFn: changeUserStatus,
+  const { mutate: changeAllStatusMutate, isLoading: changeAllStatusLoading } = useMutation({
+    mutationFn: changeAllStatus,
     onError: () => {
       showErrorToast({
         title: 'Erro ao realizar a ação',
@@ -24,11 +23,11 @@ export const useChangeStatus = (): ChangeStatusReturn => {
     onSuccess: () => {
       showSuccessToast({
         title: 'Ação realizada com sucesso!',
-        description: 'O status do usuário foi alterado.',
+        description: 'Todos os usuários foram inativados.',
       });
       queryClient.invalidateQueries(['users']);
     },
   });
 
-  return { changeStatusLoading, changeStatusMutate };
+  return { changeAllStatusLoading, changeAllStatusMutate };
 };

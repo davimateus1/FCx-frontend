@@ -1,1 +1,2 @@
-export * from './CustomModal';
+export * from './CustomActionModal';
+export * from './FooterModal';

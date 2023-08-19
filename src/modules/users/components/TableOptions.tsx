@@ -1,13 +1,19 @@
 import { Button, Flex, Icon } from '@chakra-ui/react';
 
 import { BsFiletypeDocx, BsFiletypeXlsx, BsFiletypePdf } from 'react-icons/bs';
-import { useDownloadDocument } from '../api/hooks';
+import { useChangeAllStatus, useDownloadDocument } from '../api/hooks';
+import { CustomActionModal } from '~/components';
 
 export const TableOptions = (): JSX.Element => {
   const { mutateAsync } = useDownloadDocument();
+  const { changeAllStatusMutate, changeAllStatusLoading } = useChangeAllStatus();
 
   const handleDownload = async (docType: string) => {
     await mutateAsync(docType);
+  };
+
+  const handleDeleteAll = () => {
+    changeAllStatusMutate();
   };
 
   return (
@@ -15,9 +21,17 @@ export const TableOptions = (): JSX.Element => {
       <Flex bg='yellow'></Flex>
       <Flex justify='space-between'>
         <Flex>
-          <Button bg='primary.50' color='white'>
+          <CustomActionModal
+            title='Apagar todos'
+            confirmText='Apagar'
+            description='Tem certeza que deseja apagar todos os usuários?'
+            actionFunction={handleDeleteAll}
+            isLoading={changeAllStatusLoading}
+            bg='primary.50'
+            color='white'
+          >
             Apagar todos
-          </Button>
+          </CustomActionModal>
         </Flex>
         <Flex gap='1rem'>
           <Button

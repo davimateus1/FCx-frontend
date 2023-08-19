@@ -1,12 +1,11 @@
 import {
   Button,
-  Flex,
+  ButtonProps,
   Heading,
   Icon,
   Modal,
   ModalBody,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   Text,
@@ -15,6 +14,7 @@ import {
 import { ReactNode } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { UserStatus } from '~/types';
+import { FooterModal } from './FooterModal';
 
 type CustomModalProps = {
   title: string;
@@ -25,9 +25,9 @@ type CustomModalProps = {
   isLoading: boolean;
   children: ReactNode;
   status?: UserStatus;
-};
+} & ButtonProps;
 
-export const CustomModal = ({
+export const CustomActionModal = ({
   title,
   description,
   cancelText = 'Cancelar',
@@ -36,6 +36,7 @@ export const CustomModal = ({
   isLoading,
   children,
   status,
+  ...buttonProps
 }: CustomModalProps): JSX.Element => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -54,6 +55,7 @@ export const CustomModal = ({
         _active={{}}
         isDisabled={status === UserStatus.BLOCKED}
         _disabled={{ cursor: 'not-allowed', opacity: '0.5' }}
+        {...buttonProps}
       >
         {children}
       </Button>
@@ -77,33 +79,13 @@ export const CustomModal = ({
           <ModalBody>
             <Text maxW='85%'>{description}</Text>
           </ModalBody>
-          <ModalFooter mt='1rem'>
-            <Flex justify='space-between' w='100%'>
-              <Button
-                onClick={onClose}
-                w='20rem'
-                h='4rem'
-                fontSize='md'
-                bgColor='black.50'
-                color='white'
-                _hover={{}}
-              >
-                {cancelText}
-              </Button>
-              <Button
-                onClick={handleAction}
-                w='20rem'
-                h='4rem'
-                fontSize='md'
-                isLoading={isLoading}
-                bgColor='secondary.50'
-                color='white'
-                _hover={{}}
-              >
-                {confirmText}
-              </Button>
-            </Flex>
-          </ModalFooter>
+          <FooterModal
+            onClose={onClose}
+            confirmText={confirmText}
+            handleAction={handleAction}
+            isLoading={isLoading}
+            cancelText={cancelText}
+          />
         </ModalContent>
       </Modal>
     </>

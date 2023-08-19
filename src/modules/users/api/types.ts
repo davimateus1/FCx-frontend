@@ -5,6 +5,10 @@ export type GetUsersParams = {
   config?: AxiosRequestConfig;
 };
 
+export type GetUserParams = {
+  id: number;
+};
+
 export type ChangeStatusParams = {
   id: number;
   status: UserStatus;

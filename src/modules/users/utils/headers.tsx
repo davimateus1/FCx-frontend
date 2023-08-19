@@ -4,7 +4,8 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { User, UserStatus } from '~/types';
 import { MdOutlineBlock } from 'react-icons/md';
 import { LuUserCheck, LuUserX } from 'react-icons/lu';
-import { CustomModal } from '~/components/Modal';
+import { CustomActionModal } from '~/components';
+import { EditUserModal } from '../components';
 
 const columnHelper = createColumnHelper<User>();
 
@@ -105,10 +106,12 @@ export const headersUsers = ({ handleChangeStatus, changeStatusLoading }: Header
       cell: (props) => {
         const status = props.row.original.status;
         const isInactive = status === UserStatus.INACTIVE;
+        const userId = props.getValue();
 
         return (
           <Flex justify='space-around' align='center'>
-            <CustomModal
+            <EditUserModal id={userId} />
+            <CustomActionModal
               status={status}
               title={`${isInactive ? 'Ativar' : 'Desativar'} usuário`}
               description={`Tem certeza que deseja ${
@@ -118,8 +121,8 @@ export const headersUsers = ({ handleChangeStatus, changeStatusLoading }: Header
               isLoading={changeStatusLoading}
               actionFunction={
                 isInactive
-                  ? () => handleChangeStatus(props.getValue(), UserStatus.ACTIVE)
-                  : () => handleChangeStatus(props.getValue(), UserStatus.INACTIVE)
+                  ? () => handleChangeStatus(userId, UserStatus.ACTIVE)
+                  : () => handleChangeStatus(userId, UserStatus.INACTIVE)
               }
             >
               <Icon
@@ -127,17 +130,17 @@ export const headersUsers = ({ handleChangeStatus, changeStatusLoading }: Header
                 color={isInactive ? 'primary.100' : 'yellow.500'}
                 fontSize='3xl'
               />
-            </CustomModal>
-            <CustomModal
+            </CustomActionModal>
+            <CustomActionModal
               status={status}
               title='Bloquear usuário'
               description='Tem certeza que deseja bloquear esse usuário?'
               confirmText='Bloquear'
               isLoading={changeStatusLoading}
-              actionFunction={() => handleChangeStatus(props.getValue(), UserStatus.BLOCKED)}
+              actionFunction={() => handleChangeStatus(userId, UserStatus.BLOCKED)}
             >
               <Icon as={MdOutlineBlock} color='primary.50' fontSize='3xl' />
-            </CustomModal>
+            </CustomActionModal>
           </Flex>
         );
       },

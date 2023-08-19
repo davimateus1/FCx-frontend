@@ -4,3 +4,4 @@ export * from './Layouts';
 export * from './Sidebar';
 export * from './Table';
 export * from './Tags';
+export * from './Modal';

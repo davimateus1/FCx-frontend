@@ -112,7 +112,7 @@ export const Table = <TData extends Record<string, unknown>>({
       {data.length === 0 && (
         <Center mt='0.5rem'>
           <Text fontSize='xl' fontWeight='semibold' color={bgColor}>
-            Nenhum dado encontrado...
+            Nenhum resultado encontrado...
           </Text>
         </Center>
       )}
