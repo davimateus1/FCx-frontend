@@ -6,13 +6,7 @@ export const styles = {
       color: 'brand.100',
     },
     body: {
-      fontSize: '10px',
-    },
-    '#chakra-toast-portal > *': {
-      pt: 'safe-top',
-      pl: 'safe-left',
-      pr: 'safe-right',
-      pb: 'safe-bottom',
+      fontSize: '16px',
     },
     h1: {
       fontSize: '3.2rem',

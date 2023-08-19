@@ -22,7 +22,7 @@ export const FooterModal = ({
       <Flex justify='space-between' w='100%'>
         <Button
           onClick={onClose}
-          w='49%'
+          w='49.5%'
           h='4rem'
           fontSize='md'
           bgColor='black.50'
@@ -33,7 +33,7 @@ export const FooterModal = ({
         </Button>
         <Button
           onClick={handleAction}
-          w='49%'
+          w='49.5%'
           h='4rem'
           fontSize='md'
           isLoading={isLoading}

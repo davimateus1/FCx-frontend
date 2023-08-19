@@ -17,6 +17,9 @@ export const useCustomToast = () => {
       duration,
       isClosable: true,
       description,
+      containerStyle: {
+        color: 'white',
+      },
     });
   };
 

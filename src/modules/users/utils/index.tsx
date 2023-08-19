@@ -8,21 +8,24 @@ export const tags = [
   { label: '40+', minValue: '40', maxValue: '' },
 ];
 
-export const translateStatus = (status?: string) => {
+export const translateTextToStatus = (status?: string): UserStatus => {
   switch (status) {
-    case 'active':
-      return 'Ativo';
-    case 'inactive':
-      return 'Inativo';
-    case 'blocked':
-      return 'Bloqueado';
     case 'Ativo':
       return UserStatus.ACTIVE;
     case 'Inativo':
       return UserStatus.INACTIVE;
-    case 'Bloqueado':
-      return UserStatus.BLOCKED;
     default:
-      return '';
+      return UserStatus.BLOCKED;
+  }
+};
+
+export const translateStatusToText = (status?: UserStatus): string => {
+  switch (status) {
+    case UserStatus.ACTIVE:
+      return 'Ativo';
+    case UserStatus.INACTIVE:
+      return 'Inativo';
+    default:
+      return 'Bloqueado';
   }
 };

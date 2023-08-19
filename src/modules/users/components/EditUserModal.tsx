@@ -11,7 +11,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-import { useGetUser } from '../api/hooks';
+import { useGetUser, useUpdateUser } from '../api/hooks';
 import { IoMdClose } from 'react-icons/io';
 import { LuEdit2 } from 'react-icons/lu';
 
@@ -19,7 +19,8 @@ import { TextInput, FooterModal } from '~/components';
 import { useForm } from 'react-hook-form';
 import { EditUserSchemaProps, editUserSchema } from '../schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { translateStatus } from '../utils';
+import { translateStatusToText, translateTextToStatus } from '../utils';
+import { Masks } from '~/utils/mask';
 
 type EditUserModalProps = {
   id: number;
@@ -28,6 +29,9 @@ type EditUserModalProps = {
 export const EditUserModal = ({ id }: EditUserModalProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data: user } = useGetUser({ id });
+  const { updateUserMutate, updateUserLoading } = useUpdateUser();
+
+  const formattedDate = user?.birthDate.split('T')[0];
 
   const {
     register,
@@ -40,7 +44,14 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
   });
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    const age = Number(data.age);
+    const status = translateTextToStatus(data.status);
+    const birthDate = new Date(data.birthDate).toISOString();
+
+    updateUserMutate({
+      id,
+      data: { ...data, age, status, birthDate },
+    });
   });
 
   const onCloseModal = () => {
@@ -56,15 +67,7 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
 
       <Modal onClose={onCloseModal} isOpen={isOpen} isCentered>
         <ModalOverlay />
-        <ModalContent
-          bg='white'
-          borderRadius='xl'
-          p='1rem'
-          minW='60%'
-          minH='60%'
-          as='form'
-          onSubmit={onSubmit}
-        >
+        <ModalContent bg='white' borderRadius='xl' p='1rem' minW='60%' minH='40%'>
           <ModalHeader display='flex' justifyContent='space-between'>
             <Heading fontSize='4xl' fontWeight='bold'>
               Editar usuário
@@ -79,80 +82,93 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
           </ModalHeader>
 
           <ModalBody>
-            <Grid templateColumns='repeat(2, 1fr)' gap='1rem'>
-              <TextInput
-                label='Nome'
-                bg='secondary.300'
-                color='primary.0'
-                register={register('name')}
-                defaultValue={user?.name}
-                errorMessage={errors.name?.message}
+            <form onSubmit={onSubmit}>
+              <Grid templateColumns='repeat(3, 1fr)' gap='1rem'>
+                <TextInput
+                  label='Nome'
+                  bg='secondary.300'
+                  color='primary.0'
+                  register={register('name')}
+                  defaultValue={user?.name}
+                  errorMessage={errors.name?.message}
+                />
+                <TextInput
+                  label='Email'
+                  bg='secondary.300'
+                  color='primary.0'
+                  register={register('email')}
+                  defaultValue={user?.email}
+                  errorMessage={errors.email?.message}
+                />
+                <TextInput
+                  label='Login'
+                  bg='secondary.300'
+                  color='primary.0'
+                  register={register('login')}
+                  defaultValue={user?.login}
+                  errorMessage={errors.login?.message}
+                />
+                <TextInput
+                  label='Idade'
+                  bg='secondary.300'
+                  color='primary.0'
+                  register={register('age')}
+                  defaultValue={user?.age}
+                  errorMessage={errors.age?.message}
+                  maskFormatFunction={Masks.formatOnlyPositiveNumbers}
+                />
+                <TextInput
+                  label='Telefone'
+                  bg='secondary.300'
+                  color='primary.0'
+                  register={register('phone')}
+                  defaultValue={user?.phone}
+                  errorMessage={errors.phone?.message}
+                  maskFormatFunction={Masks.formatPhone}
+                />
+                <TextInput
+                  label='Data de nascimento'
+                  bg='secondary.300'
+                  color='primary.0'
+                  register={register('birthDate')}
+                  defaultValue={formattedDate}
+                  errorMessage={errors.birthDate?.message}
+                  type='date'
+                />
+                <TextInput
+                  label='Status'
+                  bg='secondary.300'
+                  color='primary.0'
+                  register={register('status')}
+                  defaultValue={translateStatusToText(user?.status)}
+                  errorMessage={errors.status?.message}
+                />
+                <TextInput
+                  label='CPF'
+                  bg='secondary.300'
+                  color='primary.0'
+                  register={register('cpf')}
+                  defaultValue={user?.cpf}
+                  errorMessage={errors.cpf?.message}
+                  maskFormatFunction={Masks.formatCPF}
+                />
+                <TextInput
+                  label='Nome da mãe'
+                  bg='secondary.300'
+                  color='primary.0'
+                  register={register('motherName')}
+                  defaultValue={user?.motherName}
+                  errorMessage={errors.motherName?.message}
+                />
+              </Grid>
+              <FooterModal
+                confirmText='Salvar'
+                isLoading={updateUserLoading}
+                onClose={onCloseModal}
+                type='submit'
               />
-              <TextInput
-                label='Login'
-                bg='secondary.300'
-                color='primary.0'
-                register={register('login')}
-                defaultValue={user?.login}
-                errorMessage={errors.login?.message}
-              />
-              <TextInput
-                label='Idade'
-                bg='secondary.300'
-                color='primary.0'
-                register={register('age')}
-                defaultValue={user?.age}
-                errorMessage={errors.age?.message}
-                type='number'
-              />
-              <TextInput
-                label='Telefone'
-                bg='secondary.300'
-                color='primary.0'
-                register={register('phone')}
-                defaultValue={user?.phone}
-                errorMessage={errors.phone?.message}
-              />
-              <TextInput
-                label='Data de nascimento'
-                bg='secondary.300'
-                color='primary.0'
-                register={register('birthDate')}
-                defaultValue={user?.birthDate}
-                errorMessage={errors.birthDate?.message}
-              />
-              <TextInput
-                label='Status'
-                bg='secondary.300'
-                color='primary.0'
-                register={register('status')}
-                defaultValue={translateStatus(user?.status)}
-                errorMessage={errors.status?.message}
-              />
-              <TextInput
-                label='CPF'
-                bg='secondary.300'
-                color='primary.0'
-                register={register('cpf')}
-                defaultValue={user?.cpf}
-                errorMessage={errors.cpf?.message}
-              />
-              <TextInput
-                label='Nome da mãe'
-                bg='secondary.300'
-                color='primary.0'
-                register={register('motherName')}
-                defaultValue={user?.motherName}
-                errorMessage={errors.motherName?.message}
-              />
-            </Grid>
+            </form>
           </ModalBody>
-          <FooterModal
-            onClose={onCloseModal}
-            isLoading={false}
-            confirmText='Salvar'
-            type='submit'
-          />
         </ModalContent>
       </Modal>
     </>

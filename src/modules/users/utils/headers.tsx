@@ -6,7 +6,7 @@ import { MdOutlineBlock } from 'react-icons/md';
 import { LuUserCheck, LuUserX } from 'react-icons/lu';
 import { CustomActionModal } from '~/components';
 import { EditUserModal } from '../components';
-import { translateStatus } from '.';
+import { translateStatusToText } from '.';
 
 const columnHelper = createColumnHelper<User>();
 
@@ -68,7 +68,9 @@ export const headersUsers = ({ handleChangeStatus, changeStatusLoading }: Header
       header: 'Data de nascimento',
       size: 1200,
       cell: (props) => {
-        const formattedDate = new Date(props.getValue()).toLocaleDateString('pt-BR');
+        const formattedDate = new Date(props.getValue()).toLocaleDateString('pt-BR', {
+          timeZone: 'UTC',
+        });
 
         return (
           <Text align='center' color='white' fontSize='md'>
@@ -107,7 +109,7 @@ export const headersUsers = ({ handleChangeStatus, changeStatusLoading }: Header
               bg={getBgColor()}
               borderRadius='0.5rem'
             >
-              {translateStatus(status)}
+              {translateStatusToText(status)}
             </Text>
           </Flex>
         );
