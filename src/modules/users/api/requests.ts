@@ -1,8 +1,14 @@
 import { axiosInstance } from '~/api';
-import { ChangeStatusParams, GetUserParams, GetUsersParams, UpdateUserParams } from './types';
+import {
+  ChangeStatusParams,
+  GetUsersReturn,
+  GetUserParams,
+  GetUsersParams,
+  UpdateUserParams,
+} from './types';
 import { User } from '~/types';
 
-export const getUsers = async ({ config }: GetUsersParams): Promise<Array<User>> => {
+export const getUsers = async ({ config }: GetUsersParams): Promise<GetUsersReturn> => {
   const response = await axiosInstance.get('/users', config);
 
   return response.data;

@@ -8,7 +8,14 @@ export type UseGetUsersParams = {
   maxAge?: string;
   status?: string;
   date?: string;
-} & UseQueryOptions<Array<User>, unknown>;
+  page?: number;
+} & UseQueryOptions<
+  {
+    users: Array<User>;
+    totalPages: number;
+  },
+  unknown
+>;
 
 export const useGetUsers = ({
   search,
@@ -16,6 +23,7 @@ export const useGetUsers = ({
   maxAge,
   status,
   date,
+  page,
   ...rest
 }: UseGetUsersParams) => {
   return useQuery({
@@ -28,10 +36,11 @@ export const useGetUsers = ({
             maxAge,
             ...(status && { status }),
             ...(date && { date }),
+            ...(page && { page }),
           },
         },
       }),
-    queryKey: ['users', search, minAge, maxAge, status, date],
+    queryKey: ['users', search, minAge, maxAge, status, date, page],
     ...rest,
   });
 };

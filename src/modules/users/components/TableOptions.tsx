@@ -2,9 +2,16 @@ import { Button, Flex, Icon } from '@chakra-ui/react';
 
 import { BsFiletypeDocx, BsFiletypeXlsx, BsFiletypePdf } from 'react-icons/bs';
 import { useChangeAllStatus, useDownloadDocument } from '../api/hooks';
-import { CustomActionModal } from '~/components';
+import { CustomActionModal, TablePagination } from '~/components';
+import { Dispatch, SetStateAction } from 'react';
 
-export const TableOptions = (): JSX.Element => {
+type TableOptionsProps = {
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
+  pageCount: number;
+};
+
+export const TableOptions = ({ page, setPage, pageCount }: TableOptionsProps): JSX.Element => {
   const { mutateAsync } = useDownloadDocument();
   const { changeAllStatusMutate, changeAllStatusLoading } = useChangeAllStatus();
 
@@ -18,6 +25,7 @@ export const TableOptions = (): JSX.Element => {
 
   return (
     <Flex mb='1rem' direction='column'>
+      <TablePagination actualPage={page} pageCount={pageCount} setPage={setPage} mb='1rem' />
       <Flex justify='space-between'>
         <Flex>
           <CustomActionModal

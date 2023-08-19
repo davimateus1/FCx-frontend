@@ -20,17 +20,17 @@ export const TablePagination = ({
 
   return (
     <Flex background='transparent' borderRadius='md' w='100%' justifyContent='flex-end' {...rest}>
-      <Flex justifyContent='space-between' m={4} mb={0} mr={2} alignItems='center'>
-        <Text mx={3}>
-          Mostrando
-          <Text mx='4px' fontWeight='bold' as='span'>
+      <Flex justifyContent='space-between' alignItems='center'>
+        <Flex gap='0.6rem' align='center'>
+          <Text color='white'>Mostrando</Text>
+          <Text fontWeight='bold' color='primary.100'>
             {pageCount === 0 ? 0 : actualPage}
           </Text>
-          de
-          <Text ml='4px' fontWeight='bold' as='span'>
+          <Text color='white'>de</Text>
+          <Text fontWeight='bold' color='primary.100'>
             {pageCount}
           </Text>
-        </Text>
+        </Flex>
         <Flex>
           <Button
             fontSize='2xl'

@@ -8,20 +8,28 @@ import { headersUsers } from '../utils/headers';
 import { CustomHeader, MainLayout, Table } from '~/components';
 import { FiltersDrawer, TableOptions } from '../components';
 import { UserStatus } from '~/types';
+import { ScrollbarStyle } from '~/styles';
+
+const INITIAL_PAGE = 1;
 
 export const UsersPage = (): JSX.Element => {
-  const [search, setSearch] = useState('');
-  const [status, setStatus] = useState<UserStatus>(UserStatus.ACTIVE);
-  const [ageRange, setAgeRange] = useState<string[]>([]);
   const [date, setDate] = useState('');
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(INITIAL_PAGE);
+  const [ageRange, setAgeRange] = useState<string[]>([]);
+  const [status, setStatus] = useState<UserStatus>(UserStatus.ACTIVE);
 
-  const { data: users, isLoading: usersLoading } = useGetUsers({
+  const { data, isLoading: usersLoading } = useGetUsers({
     search,
     minAge: ageRange[0],
     maxAge: ageRange[1],
     status,
     date,
+    page,
   });
+
+  const users = data?.users ?? [];
+  const pageCount = data?.totalPages ?? 0;
 
   const { changeStatusMutate, changeStatusLoading } = useChangeStatus();
 
@@ -45,14 +53,16 @@ export const UsersPage = (): JSX.Element => {
             setDate={setDate}
           />
         </CustomHeader>
-        <Flex mt='1.5rem' direction='column'>
-          <TableOptions />
-          <Table
-            columns={headersUsers({ handleChangeStatus, changeStatusLoading })}
-            data={users ?? []}
-            bgColor='secondary.50'
-            isLoading={usersLoading}
-          />
+        <Flex mt='1.5rem' direction='column' maxH='calc(100vh - 20rem)'>
+          <TableOptions page={page} pageCount={pageCount} setPage={setPage} />
+          <Flex overflowY='auto' sx={{ ...ScrollbarStyle }}>
+            <Table
+              columns={headersUsers({ handleChangeStatus, changeStatusLoading })}
+              data={users}
+              bgColor='secondary.50'
+              isLoading={usersLoading}
+            />
+          </Flex>
         </Flex>
       </Fade>
     </MainLayout>

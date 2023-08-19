@@ -5,6 +5,11 @@ export type GetUsersParams = {
   config?: AxiosRequestConfig;
 };
 
+export type GetUsersReturn = {
+  users: Array<User>;
+  totalPages: number;
+};
+
 export type GetUserParams = {
   id: number;
 };

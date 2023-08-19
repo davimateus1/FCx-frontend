@@ -6,3 +6,5 @@ export const theme = extendTheme({
   styles,
   ...foundations,
 });
+
+export * from './ScrollbarStyle';

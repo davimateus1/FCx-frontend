@@ -47,17 +47,15 @@ export const Table = <TData extends Record<string, unknown>>({
   ) : (
     <Flex flexDir='column' w='100%'>
       <CTable w='100%'>
-        <Thead position='sticky' top='0' m={0}>
+        <Thead position='sticky' top='0' m={0} zIndex={1}>
           {getHeaderGroups().map((headerGroup) => (
             <Tr color='white' key={headerGroup.id} textAlign='left'>
-              {headerGroup.headers.map((header, index) => {
+              {headerGroup.headers.map((header) => {
                 const columnHeader = header.column.columnDef.header;
                 return (
                   <Th
                     px='2rem'
                     py='2.4rem'
-                    borderLeft={index === 0 ? 'none' : '1px solid'}
-                    borderLeftColor='gray.zeroOpacity20'
                     bgColor={bgColor}
                     textAlign='center'
                     alignSelf='center'
@@ -91,10 +89,8 @@ export const Table = <TData extends Record<string, unknown>>({
 
                   return (
                     <Td
-                      textAlign='center'
-                      alignSelf='center'
                       borderBottom='2.5px solid'
-                      borderBottomColor='gray.zeroOpacity20'
+                      borderBottomColor='white.0'
                       fontSize='lg'
                       fontWeight={300}
                       py='1.5rem'
