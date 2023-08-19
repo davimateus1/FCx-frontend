@@ -7,6 +7,7 @@ import { useChangeStatus, useGetUsers } from '../api/hooks';
 import { headersUsers } from '../utils/headers';
 import { CustomHeader, MainLayout, Table } from '~/components';
 import { FiltersDrawer, TableOptions } from '../components';
+
 import { UserStatus } from '~/types';
 import { ScrollbarStyle } from '~/styles';
 
@@ -51,6 +52,7 @@ export const UsersPage = (): JSX.Element => {
             setStatus={setStatus}
             setAgeRange={setAgeRange}
             setDate={setDate}
+            setPage={setPage}
           />
         </CustomHeader>
         <Flex mt='1.5rem' direction='column' maxH='calc(100vh - 20rem)'>

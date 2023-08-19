@@ -13,9 +13,11 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
+
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { FiFilter } from 'react-icons/fi';
 import { IoMdClose } from 'react-icons/io';
+
 import { TextInput, TagList } from '~/components';
 import { tags } from '../utils';
 import { UserStatus } from '~/types';
@@ -23,9 +25,10 @@ import { UserStatus } from '~/types';
 type FiltersDrawerProps = {
   status: string;
   ageRange: string[];
-  setStatus: Dispatch<SetStateAction<UserStatus>>;
-  setAgeRange: Dispatch<SetStateAction<string[]>>;
+  setPage: Dispatch<SetStateAction<number>>;
   setDate: Dispatch<SetStateAction<string>>;
+  setStatus: Dispatch<SetStateAction<UserStatus>>;
+  setAgeRange: Dispatch<SetStateAction<Array<string>>>;
 };
 
 export const FiltersDrawer = ({
@@ -34,6 +37,7 @@ export const FiltersDrawer = ({
   setDate,
   setStatus,
   setAgeRange,
+  setPage,
 }: FiltersDrawerProps): JSX.Element => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -54,6 +58,11 @@ export const FiltersDrawer = ({
     }
   };
 
+  const handleOpenDrawer = () => {
+    setPage(1);
+    onOpen();
+  };
+
   return (
     <>
       <IconButton
@@ -65,7 +74,7 @@ export const FiltersDrawer = ({
         icon={<Icon as={FiFilter} color='white' fontSize='2xl' />}
         _hover={{ bgColor: 'primary.50' }}
         _active={{}}
-        onClick={onOpen}
+        onClick={handleOpenDrawer}
       />
       <Drawer isOpen={isOpen} placement='right' onClose={onClose} size='sm'>
         <DrawerOverlay />

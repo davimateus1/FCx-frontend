@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import { User, UserStatus } from '~/types';
+import { User, UserForm, UserStatus } from '~/types';
 
 export type GetUsersParams = {
   config?: AxiosRequestConfig;
@@ -21,5 +21,5 @@ export type ChangeStatusParams = {
 
 export type UpdateUserParams = {
   id: number;
-  data: Omit<User, 'id' | 'createdAt' | 'updatedAt'>;
+  data: UserForm;
 };

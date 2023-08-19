@@ -1,4 +1,4 @@
-import { Flex, Input, InputProps, Text } from '@chakra-ui/react';
+import { Flex, Input, InputProps, Text, TextProps } from '@chakra-ui/react';
 
 import { UseFormRegisterReturn } from 'react-hook-form';
 
@@ -13,6 +13,7 @@ export type TextInputProps = {
   register?: UseFormRegisterReturn<string>;
   errorMessage?: string;
   label?: string;
+  labelProps?: TextProps;
 } & InputProps;
 
 export const TextInput = ({
@@ -22,6 +23,7 @@ export const TextInput = ({
   label,
   register,
   maskFormatFunction,
+  labelProps,
   ...rest
 }: TextInputProps) => {
   return (
@@ -29,7 +31,7 @@ export const TextInput = ({
       <InputGroupWrapper rightElement={rightElement} leftElement={leftElement}>
         <Flex direction='column' w='100%'>
           {label && (
-            <Text fontSize='sm' fontWeight='400' mb='0.6rem'>
+            <Text fontSize='sm' fontWeight='400' mb='0.6rem' {...labelProps}>
               {label}
             </Text>
           )}

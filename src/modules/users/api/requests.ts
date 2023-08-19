@@ -6,7 +6,7 @@ import {
   GetUsersParams,
   UpdateUserParams,
 } from './types';
-import { User } from '~/types';
+import { User, UserForm } from '~/types';
 
 export const getUsers = async ({ config }: GetUsersParams): Promise<GetUsersReturn> => {
   const response = await axiosInstance.get('/users', config);
@@ -18,6 +18,10 @@ export const getUser = async ({ id }: GetUserParams): Promise<User> => {
   const response = await axiosInstance.get(`/users/${id}`);
 
   return response.data;
+};
+
+export const createUser = async (data: UserForm): Promise<void> => {
+  return await axiosInstance.post('/users', data);
 };
 
 export const updateUser = async ({ id, data }: UpdateUserParams): Promise<void> => {

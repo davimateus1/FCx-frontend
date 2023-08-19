@@ -1,20 +1,24 @@
 import { UseMutateFunction, useMutation } from '@tanstack/react-query';
 import { UserForm } from '~/types';
-import { updateUser } from '../../requests';
+import { createUser } from '../../requests';
+
 import { queryClient } from '~/lib/react-query';
 import { useCustomToast } from '~/hooks';
-import { AxiosError } from 'axios';
 
-type UpdateUserInfos = {
-  updateUserLoading: boolean;
-  updateUserMutate: UseMutateFunction<void, unknown, { id: number; data: UserForm }, unknown>;
+import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+type CreateUserInfos = {
+  createUserLoading: boolean;
+  createUserMutate: UseMutateFunction<void, unknown, UserForm, unknown>;
 };
 
-export const useUpdateUser = (): UpdateUserInfos => {
+export const useCreateUser = (): CreateUserInfos => {
   const { showSuccessToast, showErrorToast } = useCustomToast();
+  const navigate = useNavigate();
 
-  const { mutate: updateUserMutate, isLoading: updateUserLoading } = useMutation({
-    mutationFn: updateUser,
+  const { mutate: createUserMutate, isLoading: createUserLoading } = useMutation({
+    mutationFn: createUser,
     onError: (error) => {
       if (error instanceof AxiosError) {
         return showErrorToast({
@@ -24,17 +28,19 @@ export const useUpdateUser = (): UpdateUserInfos => {
       }
 
       showErrorToast({
-        title: 'Erro ao editar o usuário',
+        title: 'Erro ao criar usuário',
         description: 'Tente novamente mais tarde.',
       });
     },
     onSuccess: () => {
       showSuccessToast({
-        title: 'Usuário editado com sucesso!',
-        description: 'Cheque a lista de usuários para ver as alterações.',
+        title: 'Usuário criado com sucesso!',
+        description: 'Cheque a lista de usuários para ver o novo usuário.',
       });
+
       queryClient.invalidateQueries(['users']);
+      navigate('/usuarios');
     },
   });
-  return { updateUserMutate, updateUserLoading };
+  return { createUserMutate, createUserLoading };
 };
