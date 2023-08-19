@@ -6,6 +6,7 @@ import { MdOutlineBlock } from 'react-icons/md';
 import { LuUserCheck, LuUserX } from 'react-icons/lu';
 import { CustomActionModal } from '~/components';
 import { EditUserModal } from '../components';
+import { translateStatus } from '.';
 
 const columnHelper = createColumnHelper<User>();
 
@@ -82,21 +83,33 @@ export const headersUsers = ({ handleChangeStatus, changeStatusLoading }: Header
       cell: (props) => {
         const status = props.getValue();
 
-        const translateStatus = () => {
+        const getBgColor = () => {
           switch (status) {
-            case 'active':
-              return 'Ativo';
-            case 'inactive':
-              return 'Inativo';
+            case UserStatus.ACTIVE:
+              return 'green.500';
+            case UserStatus.INACTIVE:
+              return 'red.500';
+            case UserStatus.BLOCKED:
+              return 'yellow.500';
             default:
-              return 'Bloqueado';
+              return 'gray.500';
           }
         };
 
         return (
-          <Text align='center' fontSize='md' color='white'>
-            {translateStatus()}
-          </Text>
+          <Flex justify='center'>
+            <Text
+              align='center'
+              fontSize='md'
+              color='white'
+              w='auto'
+              p='0.5rem'
+              bg={getBgColor()}
+              borderRadius='0.5rem'
+            >
+              {translateStatus(status)}
+            </Text>
+          </Flex>
         );
       },
     }),

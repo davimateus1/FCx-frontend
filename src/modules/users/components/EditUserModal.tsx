@@ -19,6 +19,7 @@ import { TextInput, FooterModal } from '~/components';
 import { useForm } from 'react-hook-form';
 import { EditUserSchemaProps, editUserSchema } from '../schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { translateStatus } from '../utils';
 
 type EditUserModalProps = {
   id: number;
@@ -32,6 +33,7 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<EditUserSchemaProps>({
     reValidateMode: 'onChange',
     resolver: zodResolver(editUserSchema),
@@ -41,13 +43,18 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
     console.log(data);
   });
 
+  const onCloseModal = () => {
+    reset();
+    onClose();
+  };
+
   return (
     <>
       <Button onClick={onOpen} cursor='pointer' bg='none' _hover={{}} _active={{}}>
         <Icon as={LuEdit2} color='primary.100' fontSize='3xl' />
       </Button>
 
-      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+      <Modal onClose={onCloseModal} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent
           bg='white'
@@ -66,7 +73,7 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
               as={IoMdClose}
               color='primary.50'
               fontSize='3xl'
-              onClick={onClose}
+              onClick={onCloseModal}
               cursor='pointer'
             />
           </ModalHeader>
@@ -78,14 +85,15 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
                 bg='secondary.300'
                 color='primary.0'
                 register={register('name')}
-                errorMessage={errors.name?.message}
                 defaultValue={user?.name}
+                errorMessage={errors.name?.message}
               />
               <TextInput
                 label='Login'
                 bg='secondary.300'
                 color='primary.0'
                 register={register('login')}
+                defaultValue={user?.login}
                 errorMessage={errors.login?.message}
               />
               <TextInput
@@ -93,13 +101,16 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
                 bg='secondary.300'
                 color='primary.0'
                 register={register('age')}
+                defaultValue={user?.age}
                 errorMessage={errors.age?.message}
+                type='number'
               />
               <TextInput
                 label='Telefone'
                 bg='secondary.300'
                 color='primary.0'
                 register={register('phone')}
+                defaultValue={user?.phone}
                 errorMessage={errors.phone?.message}
               />
               <TextInput
@@ -107,6 +118,7 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
                 bg='secondary.300'
                 color='primary.0'
                 register={register('birthDate')}
+                defaultValue={user?.birthDate}
                 errorMessage={errors.birthDate?.message}
               />
               <TextInput
@@ -114,6 +126,7 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
                 bg='secondary.300'
                 color='primary.0'
                 register={register('status')}
+                defaultValue={translateStatus(user?.status)}
                 errorMessage={errors.status?.message}
               />
               <TextInput
@@ -121,6 +134,7 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
                 bg='secondary.300'
                 color='primary.0'
                 register={register('cpf')}
+                defaultValue={user?.cpf}
                 errorMessage={errors.cpf?.message}
               />
               <TextInput
@@ -128,11 +142,17 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
                 bg='secondary.300'
                 color='primary.0'
                 register={register('motherName')}
+                defaultValue={user?.motherName}
                 errorMessage={errors.motherName?.message}
               />
             </Grid>
           </ModalBody>
-          <FooterModal onClose={onClose} isLoading={false} confirmText='Salvar' type='submit' />
+          <FooterModal
+            onClose={onCloseModal}
+            isLoading={false}
+            confirmText='Salvar'
+            type='submit'
+          />
         </ModalContent>
       </Modal>
     </>

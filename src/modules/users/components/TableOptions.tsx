@@ -18,7 +18,6 @@ export const TableOptions = (): JSX.Element => {
 
   return (
     <Flex mb='1rem' direction='column'>
-      <Flex bg='yellow'></Flex>
       <Flex justify='space-between'>
         <Flex>
           <CustomActionModal
