@@ -3,8 +3,6 @@ import { Button, Flex, Icon, Image } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { MenuItem } from './MenuItem';
-
 import { TbUsersGroup } from 'react-icons/tb';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FiUserPlus } from 'react-icons/fi';
@@ -12,6 +10,7 @@ import { FiUserPlus } from 'react-icons/fi';
 import FcxLogo from '~/assets/fcx-logo.webp';
 
 import { MenuFooter } from './MenuFooter';
+import { MenuItem } from './MenuItem';
 
 const sidebarItems = [
   { icon: TbUsersGroup, text: 'Usuários', path: '/usuarios' },

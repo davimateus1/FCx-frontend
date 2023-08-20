@@ -1,9 +1,11 @@
 import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import { UserCredentials } from '~/types';
-import { authUser } from '../requests';
+
 import { useCustomToast } from '~/hooks';
-import { UserAuth } from '../types';
+
 import { AxiosError } from 'axios';
+import { UserAuth } from '../../types';
+import { authUser } from '../../requests';
 
 export const useLogin = (): UseMutationResult<
   {
@@ -18,7 +20,6 @@ export const useLogin = (): UseMutationResult<
 
   return useMutation(['login'], authUser, {
     onError: (error) => {
-      console.log(error);
       if (error instanceof AxiosError) {
         const code = error?.response?.status;
 

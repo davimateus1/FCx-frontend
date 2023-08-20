@@ -5,12 +5,12 @@ import { queryClient } from '~/lib/react-query';
 import { useCustomToast } from '~/hooks';
 import { AxiosError } from 'axios';
 
-type UpdateUserInfos = {
+type UpdateUserProps = {
   updateUserLoading: boolean;
   updateUserMutate: UseMutateFunction<void, unknown, { id: number; data: UserForm }, unknown>;
 };
 
-export const useUpdateUser = (): UpdateUserInfos => {
+export const useUpdateUser = (): UpdateUserProps => {
   const { showSuccessToast, showErrorToast } = useCustomToast();
 
   const { mutate: updateUserMutate, isLoading: updateUserLoading } = useMutation({

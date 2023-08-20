@@ -47,7 +47,7 @@ export const headersUsers = ({ handleChangeStatus, changeStatusLoading }: Header
       ),
     }),
     columnHelper.accessor('email', {
-      header: 'E-mail',
+      header: 'Email',
       size: 1200,
       cell: (props) => (
         <Text align='center' color='white' fontSize='md'>

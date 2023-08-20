@@ -8,12 +8,12 @@ import { useCustomToast } from '~/hooks';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-type CreateUserInfos = {
+type CreateUserProps = {
   createUserLoading: boolean;
   createUserMutate: UseMutateFunction<void, unknown, UserForm, unknown>;
 };
 
-export const useCreateUser = (): CreateUserInfos => {
+export const useCreateUser = (): CreateUserProps => {
   const { showSuccessToast, showErrorToast } = useCustomToast();
   const navigate = useNavigate();
 

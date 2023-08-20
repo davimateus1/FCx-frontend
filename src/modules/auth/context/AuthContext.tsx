@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useState, createContext } from 'react';
 
 import cookies from 'js-cookie';
 import { UserAuth } from '../api/types';
+import { history } from '~/lib/history';
 
 type SetResponse = {
   token: string;
@@ -34,14 +35,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     cookies.set('token', token);
     cookies.set('user', JSON.stringify(userAuth));
     setUser(userAuth);
-    window.location.href = '/';
+    history.push('/');
   };
 
   const logout = () => {
     cookies.remove('token');
     cookies.remove('user');
     setUser(null);
-    window.location.href = '/login';
+    history.push('/login');
   };
 
   return (

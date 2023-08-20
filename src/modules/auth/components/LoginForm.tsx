@@ -31,12 +31,8 @@ export const LoginForm = (): JSX.Element => {
   };
 
   const onSubmitLoginForm = async (data: LoginFormProps) => {
-    const response = await userMutate(data);
-    console.log(response.token);
-    handleSetResponse({
-      token: response.token,
-      userAuth: response.user,
-    });
+    const { token, user } = await userMutate(data);
+    handleSetResponse({ token: token, userAuth: user });
   };
 
   return (
