@@ -22,7 +22,7 @@ export const useRecoverPassword = (): RecoverPasswordProps => {
     onError: () => {
       showErrorToast({
         title: 'Erro ao recuperar senha',
-        description: 'Tente novamente mais tarde.',
+        description: 'Verifique seus dados e tente novamente.',
       });
     },
     onSuccess: () => {
