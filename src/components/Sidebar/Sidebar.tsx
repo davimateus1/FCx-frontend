@@ -3,13 +3,15 @@ import { Button, Flex, Icon, Image } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { MenuItem } from './components';
+import { MenuItem } from './MenuItem';
 
 import { TbUsersGroup } from 'react-icons/tb';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FiUserPlus } from 'react-icons/fi';
 
 import FcxLogo from '~/assets/fcx-logo.webp';
+
+import { MenuFooter } from './MenuFooter';
 
 const sidebarItems = [
   { icon: TbUsersGroup, text: 'Usuários', path: '/usuarios' },
@@ -24,7 +26,7 @@ export const Sidebar = (): JSX.Element => {
     <Flex
       bg='black.0'
       w={isMenuOpen ? '25rem' : '7rem'}
-      minH='87.5%'
+      h='87.5%'
       borderRadius='lg'
       align='center'
       direction='column'
@@ -37,6 +39,7 @@ export const Sidebar = (): JSX.Element => {
       <Image src={FcxLogo} w='5rem' h='5rem' mt='2rem' mb='4rem' />
       <Button
         h='3rem'
+        w='3rem'
         p='0'
         borderRadius='3xl'
         bg='secondary.50'
@@ -62,7 +65,9 @@ export const Sidebar = (): JSX.Element => {
           );
         })}
       </Flex>
-      {/* {userInfo && <FooterSection userInfo={userInfo} isMenuOpen={isMenuOpen} />} */}
+      <Flex h='100%' align='flex-end'>
+        <MenuFooter isMenuOpen={isMenuOpen} />
+      </Flex>
     </Flex>
   );
 };

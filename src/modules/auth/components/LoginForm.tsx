@@ -8,9 +8,13 @@ import { AiOutlineUser } from 'react-icons/ai';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginFormProps, loginSchema } from '../schemas';
 import { PasswordInput, TextInput } from '~/components';
+import { useLogin } from '../api/hooks';
+import { useAuthContext } from '../context';
 
 export const LoginForm = (): JSX.Element => {
   const navigate = useNavigate();
+  const { mutateAsync: userMutate, isLoading } = useLogin();
+  const { handleSetResponse } = useAuthContext();
 
   const {
     register,
@@ -26,8 +30,13 @@ export const LoginForm = (): JSX.Element => {
     navigate('/recuperar-senha');
   };
 
-  const onSubmitLoginForm = (data: LoginFormProps) => {
-    console.log(data);
+  const onSubmitLoginForm = async (data: LoginFormProps) => {
+    const response = await userMutate(data);
+    console.log(response.token);
+    handleSetResponse({
+      token: response.token,
+      userAuth: response.user,
+    });
   };
 
   return (
@@ -35,10 +44,10 @@ export const LoginForm = (): JSX.Element => {
       <Flex direction='column' alignItems='flex-start' mt='1rem' gap='1.5rem' w='100%'>
         <TextInput
           leftElement={<Icon as={AiOutlineUser} boxSize='2rem' color='primary.100' />}
-          placeholder='Username'
+          placeholder='Login'
           _placeholder={{ color: 'gray.300' }}
-          errorMessage={errors?.username?.message}
-          register={register('username')}
+          errorMessage={errors?.login?.message}
+          register={register('login')}
         />
         <PasswordInput
           placeholder='Senha'
@@ -64,6 +73,7 @@ export const LoginForm = (): JSX.Element => {
           w='100%'
           py='2.5rem'
           fontSize='lg'
+          isLoading={isLoading}
         >
           Entrar
         </Button>

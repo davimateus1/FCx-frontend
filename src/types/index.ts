@@ -20,3 +20,8 @@ export enum UserStatus {
   INACTIVE = 'inactive',
   BLOCKED = 'blocked',
 }
+
+export type UserCredentials = {
+  login: string;
+  password: string;
+};
