@@ -26,7 +26,7 @@ type FiltersDrawerProps = {
   status: string;
   ageRange: string[];
   setPage: Dispatch<SetStateAction<number>>;
-  setDate: Dispatch<SetStateAction<string>>;
+  setDate: Dispatch<SetStateAction<{ from: string; to: string }>>;
   setStatus: Dispatch<SetStateAction<UserStatus>>;
   setAgeRange: Dispatch<SetStateAction<Array<string>>>;
 };
@@ -50,12 +50,13 @@ export const FiltersDrawer = ({
   };
 
   const handleChangeDate = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.trim() === '') {
-      setDate('');
-    } else {
-      const date = new Date(e.target.value);
-      setDate(date.toISOString());
+    const { value, name } = e.target;
+
+    if (value.trim() === '') {
+      return setDate((prev) => ({ ...prev, [name]: '' }));
     }
+
+    setDate((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleOpenDrawer = () => {
@@ -100,14 +101,25 @@ export const FiltersDrawer = ({
           </DrawerHeader>
 
           <DrawerBody>
-            <Flex>
+            <Flex direction='column' gap='0.5rem'>
+              <Text fontWeight='500'>Informe o intervalo de data que deseja</Text>
               <TextInput
                 type='date'
-                label='Informe a data que deseja'
+                label='De:'
                 color='primary.100'
                 border='1.5px solid'
                 borderColor='primary.100'
                 onChange={(e) => handleChangeDate(e)}
+                name='from'
+              />
+              <TextInput
+                type='date'
+                label='Até:'
+                color='primary.100'
+                border='1.5px solid'
+                borderColor='primary.100'
+                onChange={(e) => handleChangeDate(e)}
+                name='to'
               />
             </Flex>
             <Divider my='1.5rem' borderColor='black.0' />

@@ -14,7 +14,10 @@ import { ScrollbarStyle } from '~/styles';
 const INITIAL_PAGE = 1;
 
 export const UsersPage = (): JSX.Element => {
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState<Record<'from' | 'to', string>>({
+    from: '',
+    to: '',
+  });
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(INITIAL_PAGE);
   const [ageRange, setAgeRange] = useState<string[]>([]);

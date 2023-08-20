@@ -32,7 +32,7 @@ export const headersUsers = ({ handleChangeStatus, changeStatusLoading }: Header
       header: 'Nome',
       size: 1200,
       cell: (props) => (
-        <Text align='center' color='white' fontSize='md'>
+        <Text align='center' color='white' fontSize='md' noOfLines={2}>
           {props.getValue()}
         </Text>
       ),
@@ -50,7 +50,7 @@ export const headersUsers = ({ handleChangeStatus, changeStatusLoading }: Header
       header: 'Email',
       size: 1200,
       cell: (props) => (
-        <Text align='center' color='white' fontSize='md'>
+        <Text align='center' color='white' fontSize='md' noOfLines={2}>
           {props.getValue()}
         </Text>
       ),
