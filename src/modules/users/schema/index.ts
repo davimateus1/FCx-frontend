@@ -4,16 +4,19 @@ export const editUserSchema = z.object({
   name: z.string().nonempty('Nome é obrigatório'),
   email: z.string().nonempty('Email é obrigatório').email('Email inválido'),
   login: z.string().nonempty('Login é obrigatório'),
-  age: z
-    .string()
-    .nonempty('Idade é obrigatório')
-    .refine((age) => Number(age) >= 18, {
-      message: 'Apenas maiores de 18 anos podem usar o sistema',
-    }),
   phone: z.string().nonempty('Telefone é obrigatório').min(14, {
     message: 'Telefone deve ter 11 caracteres',
   }),
-  birthDate: z.string().nonempty('Data de nascimento é obrigatório'),
+  birthDate: z
+    .string()
+    .nonempty('Data de nascimento é obrigatória')
+    .refine((value) => {
+      const date = new Date(value);
+      const now = new Date();
+      const age = now.getFullYear() - date.getFullYear();
+      return age >= 18;
+    }, 'Usuário deve ter mais de 18 anos'),
+
   status: z.enum(['Ativo', 'Inativo', 'Bloqueado'], {
     errorMap: () => ({ message: 'Status deve ser Ativo, Inativo ou Bloqueado' }),
   }),

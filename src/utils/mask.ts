@@ -25,7 +25,4 @@ export const Masks = {
   formatCPF: (value: string): string => {
     return applyMask(value, '***.***.***-**');
   },
-  formatOnlyPositiveNumbers: (value: string): string => {
-    return applyMask(value, '###');
-  },
 };

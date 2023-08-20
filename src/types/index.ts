@@ -13,7 +13,7 @@ export type User = {
   updatedAt: string;
 };
 
-export type UserForm = Omit<User, 'id' | 'createdAt' | 'updatedAt'>;
+export type UserForm = Omit<User, 'id' | 'createdAt' | 'updatedAt' | 'age'>;
 
 export enum UserStatus {
   ACTIVE = 'active',

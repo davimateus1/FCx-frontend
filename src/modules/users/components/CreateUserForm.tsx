@@ -27,7 +27,6 @@ export const CreateUserForm = (): JSX.Element => {
     createUserMutate({
       ...data,
       status: translateTextToStatus(data.status),
-      age: Number(data.age),
       birthDate: formattedDate,
     });
   });
@@ -77,16 +76,6 @@ export const CreateUserForm = (): JSX.Element => {
           py='2.2rem'
           errorMessage={errors.password?.message}
           type='password'
-        />
-        <TextInput
-          label='Idade'
-          bg='secondary.200'
-          color='white.100'
-          labelProps={{ color: 'white' }}
-          register={register('age')}
-          py='2.2rem'
-          errorMessage={errors.age?.message}
-          maskFormatFunction={Masks.formatOnlyPositiveNumbers}
         />
         <TextInput
           label='Telefone'

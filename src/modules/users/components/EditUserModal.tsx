@@ -44,13 +44,12 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
   });
 
   const onSubmit = handleSubmit((data) => {
-    const age = Number(data.age);
     const status = translateTextToStatus(data.status);
     const birthDate = new Date(data.birthDate).toISOString();
 
     updateUserMutate({
       id,
-      data: { ...data, age, status, birthDate },
+      data: { ...data, status, birthDate },
     });
   });
 
@@ -112,10 +111,9 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
                   label='Idade'
                   bg='secondary.300'
                   color='primary.0'
-                  register={register('age')}
                   defaultValue={user?.age}
-                  errorMessage={errors.age?.message}
-                  maskFormatFunction={Masks.formatOnlyPositiveNumbers}
+                  isReadOnly
+                  _readOnly={{ cursor: 'not-allowed' }}
                 />
                 <TextInput
                   label='Telefone'
