@@ -21,6 +21,7 @@ import { EditUserSchemaProps, editUserSchema } from '../schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { translateStatusToText, translateTextToStatus } from '../utils';
 import { Masks } from '~/utils/mask';
+import { UserStatus } from '~/types';
 
 type EditUserModalProps = {
   id: number;
@@ -60,7 +61,14 @@ export const EditUserModal = ({ id }: EditUserModalProps) => {
 
   return (
     <>
-      <Button onClick={onOpen} cursor='pointer' bg='none' _hover={{}} _active={{}}>
+      <Button
+        onClick={onOpen}
+        cursor='pointer'
+        bg='none'
+        _hover={{}}
+        _active={{}}
+        isDisabled={user?.status === UserStatus.BLOCKED}
+      >
         <Icon as={LuEdit2} color='primary.100' fontSize='3xl' />
       </Button>
 

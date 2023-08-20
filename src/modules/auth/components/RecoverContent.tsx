@@ -107,7 +107,7 @@ export const RecoverContent = (): JSX.Element => {
           _focus={{}}
           isLoading={recoverPasswordLoading}
         >
-          Criar usuário
+          Recuperar senha
         </Button>
       </Flex>
     </Flex>
