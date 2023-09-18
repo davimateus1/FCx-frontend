@@ -1,81 +1,44 @@
-<h1 align='center'>Vite + React + TypeScript + Eslint + Prettier Template ⚡</h1>
+# Plataforma de Gestão de Usuários e Emissão de Relatórios
 
-Create a new project with Vite, React JS, TypeScript, Eslint, Prettier in just 1 second and you don't need to setup anything.
+Bem-vindo ao README detalhado do projeto da Plataforma de Gestão de Usuários e Emissão de Relatórios da FCx Labs! Este guia irá ajudá-lo a configurar e executar tanto o front-end quanto o back-end do projeto em sua máquina.
 
-#### **Vercel Deploy: https://vite-react-ts-eslint-prettier.vercel.app**
+## Pré-requisitos
 
-![image](https://user-images.githubusercontent.com/70432453/170648662-2ff424b9-74e9-4754-a04d-512fe1496a3b.png)
+Antes de começar, certifique-se de ter os seguintes pré-requisitos instalados em sua máquina:
 
-## **Some Features 📋**
+- Node.js
+- Yarn
 
-Alias Import
+## Front-end
 
-![image](https://user-images.githubusercontent.com/70432453/170644457-ede03cca-44e9-4543-94d3-412c9d317063.png)
+### Configuração do Front-end
 
-Hook Warning
+1. Baixe o ZIP ou clone o projeto.
 
-![image](https://user-images.githubusercontent.com/70432453/170638708-23a20ffd-156e-494a-84be-b1e1cfdb5c93.png)
+2. Abra o projeto no Visual Studio Code (VSCode).
 
-Prettier Warning
+3. No terminal do VSCode, execute o seguinte comando para instalar as dependências necessárias:
 
-![image](https://user-images.githubusercontent.com/70432453/170639043-24423ed1-73cc-4730-b270-2acea1ae0c74.png)
-
-Etc...
-
-## **Using 📦**
-
-1. Clone Template
-
-```
-git clone https://github.com/igdev116/vite-react-ts-eslint-prettier.git
+```bash
+yarn 
 ```
 
-2. Install Packages
+4. Renomeie o arquivo `.env.example` para `.env`.
 
-```
-yarn install
-```
+5. O back-end foi definido para rodar sempre na porta 3030 do localhost, então não se preocupe com o valor da variável `VITE_API_URL` no arquivo `.env`.
 
-3. Start Project
+### Executando o Front-end
 
-```
-yarn dev
-```
+6. No terminal do VSCode, execute o seguinte comando para iniciar o front-end:
 
-4. If you using git, delete the existing folder .git after cloning (open `git bash` or other terminal)
-
-```
-rm -rf .git
+```bash
+yarn dev 
 ```
 
-## **Options ✍️**
+7. O projeto estará disponível na porta 3000 do seu localhost. Acesse-o em seu navegador:
 
-1. Check lint
-
-```
-yarn lint
+```bash
+http://localhost:3000 
 ```
 
-2. Fix lint
-
-```
-yarn lint:fix
-```
-
-3. Check prettier
-
-```
-yarn prettier
-```
-
-4. Fix prettier
-
-```
-yarn prettier:fix
-```
-
-5. Fix lint and prettier
-
-```
-yarn format
-```
+## A API utilizada está presente no seguinte repositório: [FCx-backend](https://github.com/davimateus1/FCx-backend)
