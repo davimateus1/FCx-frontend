@@ -41,4 +41,4 @@ yarn dev
 http://localhost:3000 
 ```
 
-## A API utilizada está presente no seguinte repositório: [FCx-backend](https://github.com/davimateus1/FCx-backend)
+## A API utilizada está presente no seguinte repositório: [Users Manager Backend](https://github.com/davimateus1/users-manager-backend)
