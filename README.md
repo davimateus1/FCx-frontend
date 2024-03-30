@@ -1,6 +1,6 @@
 # Plataforma de Gestão de Usuários e Emissão de Relatórios
 
-Bem-vindo ao README detalhado do projeto da Plataforma de Gestão de Usuários e Emissão de Relatórios da FCx Labs! Este guia irá ajudá-lo a configurar e executar tanto o front-end quanto o back-end do projeto em sua máquina.
+Bem-vindo ao README detalhado do projeto da Plataforma de Gestão de Usuários e Emissão de Relatórios! Este guia irá ajudá-lo a configurar e executar tanto o front-end quanto o back-end do projeto em sua máquina.
 
 ## Pré-requisitos
 
